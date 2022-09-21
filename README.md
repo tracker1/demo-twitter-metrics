@@ -5,6 +5,14 @@ Simple demo application gathering and displaying some metrics from twitter api.
 Using Deno, mostly because it's a simpler approach to being able to create
 something like this quickly.
 
+## Dependencies
+
+- **Docker** - either docker desktop or community to run the compose file
+  declarations.
+- **Deno** - JavaScript/TypeScript runtime for the backend api and metrics
+  applications.
+- **Node** - JavaScript runtime and build tools for the frontend ui application.
+
 ## Running
 
 - Copy `.env.sample` to `.env`.
@@ -22,24 +30,12 @@ default backend port.
 
 Each application will be under `project/*` as self-contained.
 
-### Redis
+See `README.md` in each project directory.
 
-Backend appliation data store. See `project/redis/README.md`.
-
-### Twitter Metrics
-
-Gather metrics from twitter streams into redis via api.
-
-- redis - https://deno.land/x/redis@v0.27.0
-- twitter - https://github.com/MateoCerquetella/twit-deno
-
-### API
-
-Api to receive metrics and retrieve current counts, etc.
-
-### UI
-
-Simple react ui to show active counts (current hour), last 24 and 48.
+- **redis** - Backend data store.
+- **api** - Backend API, receives metric updates and retrieve rollup counts.
+- **twitter-metrics** - Backend metrics gathering from twitter through api.
+- **ui** - React/TypeScript UI with Vite.js
 
 ## Other considerations
 
