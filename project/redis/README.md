@@ -3,6 +3,8 @@
 Using redis as a data store here, can be configured with persistence or only for
 temporary use. It's a good fit for this type of data tracking.
 
+Redis Commander will be available on port 8005.
+
 ## Expiration
 
 With the ability in redis to set expiration, don't need to worry about cleaning
