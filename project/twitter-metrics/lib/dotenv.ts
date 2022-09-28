@@ -1,5 +1,3 @@
-#!/usr/bin/env -S deno run --allow-read --allow-env
-
 import { dotenvConfig, path } from "../deps.ts";
 
 const __dirname = path.dirname(path.fromFileUrl(import.meta.url));
@@ -30,9 +28,10 @@ export function find() {
 
 export function load() {
   const envFilePath = find();
+  if (!envFilePath) return;
+  // console.log(`Loading ${envFilePath}`);
   dotenvConfig({
     path: envFilePath,
     export: true,
-    safe: true,
   });
 }
