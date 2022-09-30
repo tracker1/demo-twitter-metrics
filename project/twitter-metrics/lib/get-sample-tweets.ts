@@ -1,6 +1,7 @@
 // deno-lint-ignore-file no-explicit-any
 
 import { JsonParseStream, qs, TextLineStream } from "../deps.ts";
+import { Tweet } from "./types.ts";
 
 const twitterUrl = "https://api.twitter.com/2/tweets/sample/stream";
 
@@ -14,29 +15,26 @@ const streamOptions = {
     .join(","),
 };
 
-export interface Tweet {
-  id: string;
-  created: Date;
-  author_id: string;
-  text: string;
-  hashtags: string[];
-}
+export function recordToTweet(record: any): Tweet | null {
+  if (!record?.data) {
+    return null;
+  }
+  // console.log("data", record?.data);
 
-export function recordToTweet(record: any): Tweet {
   const {
     id,
     created_at,
     author_id,
     text,
     entities,
-  } = record?.data;
+  } = record.data;
 
   const hashtags: string[] = entities?.hashtags?.map((r: any) => r.tag) || [];
 
   const ret = {
     id,
     created: new Date(created_at),
-    author_id,
+    author: author_id,
     text,
     hashtags,
   };
@@ -50,8 +48,11 @@ export async function* getSampleTweets(bearerToken: string) {
     },
   };
 
+  const url = `${twitterUrl}?${qs.stringify(streamOptions)}`;
+  // console.log("url", url);
+  // return;
   const { body } = await fetch(
-    `${twitterUrl}?${qs.stringify(streamOptions)}`,
+    url,
     twitterOptions,
   );
   const stream = body!
@@ -61,8 +62,6 @@ export async function* getSampleTweets(bearerToken: string) {
 
   for await (const entry of stream) {
     const tweet = recordToTweet(entry);
-    if (tweet?.hashtags?.length) {
-      yield tweet;
-    }
+    if (tweet) yield tweet;
   }
 }
