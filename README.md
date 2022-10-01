@@ -33,8 +33,7 @@ Each application will be under `project/*` as self-contained.
 See `README.md` in each project directory.
 
 - [**redis**](http://localhost:8005) - Backend data store.
-- [**api**](http://localhost:8002) - Backend API, receives metric updates and
-  retrieve rollup counts.
+- [**api**](http://localhost:8002) - Backend API to retrieve rollup counts.
 - **twitter-metrics** - Backend metrics gathering from twitter through api.
 - [**ui**](http://localhost:8000) - React/TypeScript UI with Vite.js
 

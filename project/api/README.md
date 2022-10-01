@@ -12,5 +12,3 @@ for the non-get methods.
 May change as development occurs.
 
 - `GET /api/current` - latest rollup aggregates
-- `POST /api/tweet` - add tweet - only adds count to rollup
-- `POST /api/hashtag` - add hashtag - only adds hashtag to rollup
