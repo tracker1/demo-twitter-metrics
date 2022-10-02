@@ -10,11 +10,13 @@ const TWITTER_BEARER_TOKEN = Deno.env.get("TWITTER_BEARER_TOKEN") || "";
 const REDIS_HOSTS = Deno.env.get("REDIS_HOSTS") || "";
 
 if (!(TWITTER_BEARER_TOKEN && REDIS_HOSTS)) {
-  console.log(new Date(), {
+  console.log(JSON.stringify({
+    on: new Date(),
+    level: "FATAL",
     message: `Missing required environment variable.`,
     TWITTER_BEARER_TOKEN: TWITTER_BEARER_TOKEN ? "present" : "missing",
     REDIS_HOSTS: REDIS_HOSTS ? "present" : "missing",
-  });
+  }));
   Deno.exit(1);
 }
 
@@ -24,14 +26,23 @@ let count = 0;
 let logAt = getNext();
 const dataClient = new RedisDataClient(REDIS_HOSTS);
 
-console.log(new Date(), { message: "starging", count });
+console.log(JSON.stringify({ 
+  on: new Date(),
+  level: 'START',
+  message: "Starging metrics gathering",
+});
 for await (const tweet of getSampleTweetStream(TWITTER_BEARER_TOKEN)) {
   await dataClient.saveTweet(tweet);
 
   count++;
   const now = new Date();
   if (logAt < now.valueOf()) {
-    console.log(now, { message: "update", count });
+    console.log(JSON.stringify({ 
+      on: now,
+      level: 'INFO',
+      message: "Updated Count", 
+      count 
+    }));
     logAt = getNext();
   }
 }
