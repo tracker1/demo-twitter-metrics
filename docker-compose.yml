@@ -45,3 +45,12 @@ services:
       - REDIS_HOSTS=local:redis:6379
     ports:
       - "8002:8002"
+
+  ui:
+    depends_on:
+      - api
+    build: ./project/ui
+    environment:
+      - API_HOST=http://api:8002
+    ports:
+      - "8000:80"
