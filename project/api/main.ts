@@ -1,4 +1,4 @@
-#!/usr/bin/env -S deno run --allow-read --allow-env --allow-net --unstable
+#!/usr/bin/env -S deno run --watch --allow-read --allow-env --allow-net --unstable
 
 import { load as loadEnv } from "./lib/dotenv.ts";
 import { oak } from "./deps.ts";

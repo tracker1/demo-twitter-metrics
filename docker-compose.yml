@@ -29,9 +29,19 @@ services:
       - "8005:8081"
 
   twitter-metrics:
+    restart: always
     depends_on:
       - redis
     build: ./project/twitter-metrics
     environment:
       - REDIS_HOSTS=local:redis:6379
       - "TWITTER_BEARER_TOKEN=${TWITTER_BEARER_TOKEN}"
+
+  api:
+    depends_on:
+      - redis
+    build: ./project/api
+    environment:
+      - REDIS_HOSTS=local:redis:6379
+    ports:
+      - "8002:8002"

@@ -2,9 +2,11 @@ export function hour() {
   return +(new Date().toISOString().replace(/\D/g, "").substring(0, 10));
 }
 
-export function prev(hour: number) {
-  if (hour % 100 === 0) return hour - 77;
-  return hour - 1;
+export function prev(hour: number, hoursBack = 1) {
+  const [_, y, m, d, h] = `${hour}`.match(/(\d{4})(\d{2})(\d{2})(\d{2})/) || [];
+  const dtm = new Date(`${y}-${m}-${d}T${h}:00:00Z`);
+  dtm.setHours(dtm.getHours() - hoursBack);
+  return +dtm.toISOString().replace(/\D/g, "").substring(0, 10);
 }
 
 export function hoursList(hour: number, hours: number) {
