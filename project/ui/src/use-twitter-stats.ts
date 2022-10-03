@@ -1,11 +1,11 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export interface TwitterData {
   countCurrent: number;
-  hashtagCurrent: string[];
   count24: number;
+  count48: number;
+  hashtagCurrent: string[];
   hashtag24: string[];
-  count48: number[];
   hashtag48: string[];
 }
 

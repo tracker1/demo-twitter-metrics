@@ -1,0 +1,24 @@
+{
+  auto_https off
+}
+
+:80 {
+  root * /app
+
+	handle /api/* {
+		reverse_proxy {$API_HOST}
+	}
+
+  @try_files {
+    not path /api/*
+    file {
+      try_files {path} {path}/ /index.html
+    }
+  }
+  rewrite @try_files {http.matchers.file.relative}
+
+  file_server {
+    index index.html
+    precompressed zstd br gzip
+  }
+}

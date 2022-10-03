@@ -87,5 +87,14 @@ export default () => {
         </Box>
       );
   }
-  return showStats(state.data);
+
+  const emptyData = {
+    countCurrent: 0,
+    count24: 0,
+    count48: 0,
+    hashtagCurrent: [],
+    hashtag24: [],
+    hashtag48: [],
+  };
+  return showStats(state.data || emptyData);
 };
