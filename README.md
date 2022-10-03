@@ -15,7 +15,7 @@ something like this quickly.
 
 ## Running
 
-- Copy `.env.sample` to `.env`.
+- Copy `.env.example` to `.env`.
   - Edit the file to include relevant keys for use with Twitter's API
 - `docker compose up -d`
 
